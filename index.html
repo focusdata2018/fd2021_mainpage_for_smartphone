@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang='ru' dir='ltr'>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+    <!--iconifier.net-->
+    <link rel="shortcut icon" href="/images/icons/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/icons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/icons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/icons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/icons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/icons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/icons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/icons/apple-touch-icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-touch-icon-180x180.png" />
+
+    <title>Добро пожаловать | FocusData</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+
+    <!--https://github.com/muicss/loadjs-->
+    <script src="https://unpkg.com/loadjs@4.2.0/dist/loadjs.min.js"></script>
+
+    <script>
+/*Инициализация различных UI*/
+function init(type)
+{
+	if (type == 'zu')
+	{
+	document.getElementById('init_zu').style.display="none";
+    document.getElementById('system_msg').innerHTML="Обновляем функционал";
+	loadjs(['https://unpkg.com/vuetify/dist/vuetify.min.css', 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'], 'app', {
+        async: true,  // load files synchronously or asynchronously (default: true)
+        numRetries: 3,  // see caveats about using numRetries with async:false (default: 0)
+        returnPromise: false  // return Promise object (default: false)
+    });
+	} //if
+
+    loadjs.ready('app', {
+    success: function() {
+       document.getElementById('system_msg').innerHTML="Приложение обновлено...";
+       setTimeout(function(){
+       document.getElementById('system_msg').innerHTML="";
+       },3000);
+    },
+    error: function(depsNotFound) {
+       if (depsNotFound.indexOf('vuetify.min.css') > -1) {
+          document.getElementById('system_msg').innerHTML="Error: https://unpkg.com/vuetify/dist/vuetify.min.css not found";
+       };
+       if (depsNotFound.indexOf('jquery') > -1) {
+          document.getElementById('system_msg').innerHTML="Error: https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js not found";
+       };
+    }
+  });
+
+}
+
+    </script>
+
+</head>
+<body>
+<div id="system_msg"></div>
+<a id="init_zu" onclick="init('zu');" style="border-bottom: #000 dotted 1px;">Активировать зарядное устройство</a>
+<div id="app"></div>
+</body>
+</html>
